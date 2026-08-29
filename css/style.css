@@ -1,0 +1,887 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background-color: #ffffff;
+    color: #2f3640;
+}
+
+.container{
+    width:90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar{
+   background-color: rgba(0, 0, 0, 0.25); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px); /* Suport pentru browsere bazate på Safari/WebKit */
+    
+    padding: 1.2rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linie discretă jos */
+}
+
+.brand-logo{
+    font-size:1.8rem;
+    font-weight:800;
+    font-family:'Georgia',serif;
+    color: #eccc68;
+    text-decoration: none;
+}
+
+.menu-links a{
+   color: #ffffff; /* Schimbat din albastru/negru în alb */
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+.menu-links a:hover, .menu-links a.active{
+    color: #eccc68;
+}
+
+.main-content{
+    margin-top: 0;
+    text-align: center;
+    position: relative;
+    width: 100vw;
+    height: auto;
+}
+#btn-test{
+   position: absolute;
+    bottom: 60px; /* Fixat la 60px de marginea de jos a ferestrei */
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto; /* Foarte important pentru a putea da click pe el! */
+    z-index: 10;
+
+    /* Stilul tău premium */
+    background-color: #ff4757; 
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s, background-color 0.2s;
+}
+#btn-test:hover{
+    background-color: #ff6b81;
+    transform: translateX(-50%) scale(1.05);
+}
+.container-continut{
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.subtitle{
+    margin-bottom: 2rem;
+    color: #718093;
+    font-size: 1.1rem;
+}
+/*continutul caruselului*/
+.carousel-container{
+    position: relative;
+    width: 100vw;
+    height: 100vh;/*inaltimea fixa a pozelor*/
+    overflow: hidden;/*ascunde pozele care nu sunt active*/
+}
+.carousel-slide{
+    display: flex;
+    width:100%;/*spatiu fara poze*/
+    height:100%;
+    transition: transform 0.5s ease-in-out;/*efectul de tranzitie lina*/
+}
+.slide-item{
+    width: 100vw;
+    height: 100vh;
+    flex:0 0 100vw;
+}
+.carousel-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;/*forteaza poza sa se muleze perfect fara sa se deformeze*/
+    display: block;
+}
+/* NOU: Stratul transparent care pune textul peste poze */
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Strat fin întunecat pentru lizibilitate */
+    z-index: 5; /* Peste poze, dar sub săgeți */
+    display: block;
+}
+
+/* Containerul intern pentru text */
+.hero-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Forțează containerul să aibă exact înălțimea ecranului */
+    pointer-events: none;
+}
+.hero-container h1,
+.hero-container p {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    color: #ffffff;
+    pointer-events: auto; /* Reactivăm click-urile pe text */
+}
+.hero-container h1 {
+    top: 120px; /* Îl poziționează clar sub navbarul tău violet */
+    font-size: 3rem;
+    color: #eccc68; /* Auriul tău */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    margin: 0;
+}
+
+.hero-container p {
+    top: 180px; /* Vine imediat sub H1, modifică valoarea dacă textul H1 e prea lung și se suprapun */
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+    margin: 0;
+}
+
+/* BUTOANELE DE NEXT / PREV */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10; /*le aducem in fata imaginilor*/
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* sectiunea formular rezervare*/
+.booking-section{
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    margin: 3rem auto;
+    max-width:600px;
+    text-align: left;
+}
+.booking-section h2{
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2f3542;
+    font-size: 1.8rem;
+}
+.form-group{
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.form-group label{
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #57606f;
+}
+.cabin-info-box{
+    background-color: #f1f2f6;
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    outline: none;
+   transition: border-color 0.3s;
+}
+.form-group input {
+    padding: 11px 14px;
+    border: 1.5px solid #dcdde1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #2f3542;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.form-group input:hover {
+    border-color: #2f3542;
+    background-color: #ffffff;
+}
+
+.form-group input:focus {
+    border-color: #eccc68;
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(236, 204, 104, 0.25);
+}
+
+/*Afisare pret total*/
+.price-display{
+    background-color: #f1f2f6;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 2rem 0;
+    border-left: 5px solid #eccc68;
+}
+.price-display h3{
+    margin: 0;
+    color:  #2f3542;
+}
+#total-price{
+    color: #2ed573;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+/*butonul de trimitere*/
+#btn-submit-booking{
+    width: 100%;
+    background-color: #2f3542;
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s,transform 0.1s;
+}
+#btn-submit-booking:hover{
+    background-color: #3f4656;
+}
+#btn-submit-booking:active{
+    transform:scale(0.98);
+}
+/* STILURI PENTRU FEREASTRA MODALĂ (POP-UP) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundal întunecat transparent */
+    backdrop-filter: blur(5px); /* Efect modern de blur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Peste tot conținutul paginii */
+    opacity: 0;
+    pointer-events: none; /* Nu lasă utilizatorul să dea click când e ascuns */
+    transition: opacity 0.3s ease;
+}
+
+/* Clasa pe care o vom adăuga din JS pentru a afișa pop-up-ul */
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 12px;
+    position: relative;
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+/* Modificăm stilul secțiunii ca să se potrivească în pop-up */
+.booking-section {
+    box-shadow: none;
+    margin: 0;
+    padding: 1.5rem 1rem;
+}
+
+/* Butonul de închidere (X) */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #2f3542;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.close-modal:hover {
+    color: #ff4757;
+}
+.form-group-row{
+    display: flex;
+    gap: 1rem;
+}
+.form-group-row.form-group{
+    flex: 1;
+}
+input[type="date"]{
+    padding: 0.75rem;
+    border: 1px solid #ced6e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    font-family: inherit;
+}
+input[type="date"]:focus{
+    border-color: #eccc68;
+}
+/*efect de scroll lin cand se apasa pe Contact in  Nav bar*/
+html{
+    scroll-behavior: smooth;
+}
+/*=======sectiune de contact======*/
+.contact-section{
+    padding: 5 rem 2 rem;
+    background-color: #f9f9f9;
+}
+.contact-section.container{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.section-title{
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+.section-subtitle{
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 3rem;
+}
+.contact-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+.contact-info h3,.contact-socials h3{
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #eccc68;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+/*Stiluri pentru telefon email si adresa*/
+
+.info-item{
+    display: flex;
+    align-items:flex-start; 
+    margin-bottom: 1.5rem;
+}
+.info-icon{
+    font-size: 1.8rem;
+    margin-right: 1rem;
+    margin-top: 0.2rem;
+}
+.info-text h4{
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+.info-text p,.contact-link-direct{
+    margin:0.2rem 0 0 0 ;
+    color: #57606f;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-block;
+}
+.contact-link-direct:hover{
+    color: #eccc68;
+    text-decoration: underline;
+}
+
+/*Butoane social media*/
+
+.contact-socials p{
+    color: #57606f;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.social-links{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 250px;
+}
+.social-btn{
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s,filter 0.2s;
+}
+.social-btn:hover{
+    transform: translateY(-2px);
+    filter: brightness(0.9);
+}
+.soc-icon{
+    margin-right: 0.7rem;
+    font-size: 1.2rem;
+}
+/*culori oficiale retele*/
+.facebook{background-color: #1877f2;}
+.instagram{background-color: #e1306c;}
+.tiktok{background-color: #010101;}
+
+/*responsivitatea pentru ecrane mici(Telefoane)*/
+
+@media(max-width:768px){
+    .contact-grid{
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .social-links{
+        max-width: 100%;
+    }
+}
+
+/*stiluri modal si carousel despre noi*/
+
+/*ascuns implicit*/
+.info-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 9999;/*peste tot inclusiv peste nav bar*/
+    display: none;
+}
+/*se activeaza la click din JS*/
+.info-overlay.active{
+    display: block !important;
+}
+.info-carousel-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.info-carousel-slide{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+.info-slide-item{
+    width: 100vw;
+    height: 100vh;
+    flex: 0 0 100vw;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.info-text-box{
+    max-width: 700px;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    border:none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(1px);
+}
+.info-text-box h2{
+    font-size: 2.5rem;
+    color: #eccc68;
+    margin-bottom: 20px;
+}
+.info-text-box p{
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+.close-info{
+    position: fixed;
+    top: 25px;
+    right: 35px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #eccc68;
+    color: #fff;
+    font-size: 30px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.close-info:hover{
+    background: #ff4757;
+    border-color: #ff4757;
+}
+
+.info-carousel-btn{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid #eccc68;
+    padding: 15px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 9999;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+.info-carousel-btn:hover{background-color: #eccc68;color: #000;}
+.info-prev{left: 25px;}
+.info-next{right: 25px;}
+
+/* Modal pe tot ecranul + Imagine completă (fără Zoom pe mijloc) */
+.info-slide-item {
+    min-width: 100%;
+    height: 100vh;
+    background-size: contain; /* Arată TOATĂ imaginea, fără să o taie */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.9); /* Fundal închis pe margini pentru efect cinematografic */
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+/* Stiluri pentru opțiunile Extra din formularul de rezervare */
+.extra-services-group {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.extra-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.extra-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.extra-checkbox-item:hover {
+    color: #007bff;
+}
+
+.extra-checkbox-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+/* Stiluri Pasul 2 Rezervare */
+.step-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.summary-box {
+    background-color: #e9ecef;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+    font-size: 0.95rem;
+    color: #2b2b2b;
+    border-left: 4px solid #007bff;
+}
+
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+/* ================= FOOTER / SUBSOL ================= */
+.site-footer {
+    margin-top: 0;
+    background-color: #f7d794; /* Verdele elegant din model (poți pune #2a4736 sau altă nuanță) */
+    color: #1e272e;
+    padding-top: 3rem;
+    font-family: inherit;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 2.5rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.footer-col h2.footer-title {
+    font-family: 'Georgia', serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-weight: normal;
+}
+
+.footer-col h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: #1e272e;
+}
+
+.footer-text {
+    margin-bottom: 0.3rem;
+    color: #2f3640;
+    font-size: 0.95rem;
+}
+
+.footer-text.muted {
+    color: #4b5563;
+    margin-top: 0.5rem;
+}
+
+.footer-icon-line {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+    color: #2f3640;
+    font-size: 0.95rem;
+}
+
+.footer-icon-line a {
+    color: #1e272e;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.footer-icon-line a:hover {
+    text-decoration: underline;
+    opacity: 0.85;
+}
+
+.f-icon {
+    font-size: 1.1rem;
+    color: #1e272e;
+}
+
+/* Iconițele de Social Media */
+.footer-social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: #1e272e;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition:all 0.3s ease;
+}
+
+.social-icon-btn:hover {
+    background-color: #1e272e;
+    transform: translateY(-3px);
+    color: #eccc68;
+}
+
+/* Partea de Jos (Bară Copyright) */
+.footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 1.5rem 0 2rem 0;
+}
+
+.footer-bottom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #2f3640;
+    max-width: 350px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.legal-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.legal-links a {
+    color: #1e272e;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.legal-links a:hover {
+    text-decoration: underline;
+    opacity: 0.85;
+}
+
+/* Adaptare pentru telefoane/tablete */
+@media (max-width: 900px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-bottom-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .legal-links {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+}
+/* Stil pentru selectorul de limbă din Navbar */
+.lang-dropdown {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    outline: none;
+}
+
+.lang-dropdown option {
+    background-color: #705555;
+    color: #ffffff;
+}
+/* 1. Stil de bază pentru zilele rezervate / ocupate */
+.flatpickr-day.zi-rezervata, 
+.flatpickr-day.zi-rezervata:hover {
+    background-color: #ff4d4d !important;
+    border-color: #ff4d4d !important;
+    color: #ffffff !important;
+    text-decoration: line-through;
+}
+
+/* 2. Zilele trecute / dezactivate standard */
+.flatpickr-day.flatpickr-disabled:not(.zi-rezervata) {
+    color: #a0a5b5;
+    opacity: 0.6;
+    cursor: not-allowed !important;
+}
+
+/* 3. Implicite pentru zile rezervate: cursor de interzis */
+.flatpickr-day.zi-rezervata {
+    cursor: not-allowed !important;
+}
+
+/* 4. Caz special: Permitem cursor de click pe zilele rezervate DOAR când utilizatorul a deschis calendarul de Check-Out */
+.flatpickr-calendar.open .flatpickr-day.zi-rezervata {
+    cursor: pointer !important;
+}

@@ -1,0 +1,49 @@
+[
+  {
+    "ContainingType": "CabanaBookingApi.Controllers.RezervariController",
+    "Method": "AdaugaRezervare",
+    "RelativePath": "api/Rezervari",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cerere",
+        "Type": "CabanaBookingApi.Models.CerereRezervareDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CabanaBookingApi.Controllers.RezervariController",
+    "Method": "GetDateOcupate",
+    "RelativePath": "api/Rezervari/date-ocupate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CabanaBookingApi.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CabanaBookingApi.WeatherForecast, CabanaBookingApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

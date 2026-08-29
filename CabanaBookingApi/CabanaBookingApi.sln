@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CabanaBookingApi", "CabanaBookingApi\CabanaBookingApi.csproj", "{8BB3EF54-CB41-4CE4-A32F-C038F3AD79B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BB3EF54-CB41-4CE4-A32F-C038F3AD79B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB3EF54-CB41-4CE4-A32F-C038F3AD79B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB3EF54-CB41-4CE4-A32F-C038F3AD79B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB3EF54-CB41-4CE4-A32F-C038F3AD79B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95C52DAE-1335-42F6-B47C-EC6398547CDC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Nest - Cabana ta de vis</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Librărie pentru iconițe oficiale (Font Awesome) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- CSS Flatpickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+<!-- JS Flatpickr -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="brand-logo">Our Nest</a>
+            <div class="menu-links">
+                <a href="#" id="btn-despre" data-i18n="nav_despre">Despre Noi</a>
+                <a href="#" id="btn-extra" data-i18n="nav_extra">Extra</a>
+                <a href="#" id="nav-rezerva" data-i18n="nav_rezerva">Rezerva</a>
+                <a href="#" id="nav-contact" data-i18n="nav_contact">Contact</a>
+
+                <select id="language-select" class="lang-dropdown">
+                 <option value="ro">RO - Română</option>
+                 <option value="en">EN - English</option>
+                 <option value="hu">HU - Magyar</option>
+                 <option value="de">DE - Deutsch</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">  
+        <div class="carousel-container">
+                <div class="carousel-slide">
+                    <div class="slide-item">
+                        <img src="assets/cabana1.jpg" alt="Cabana Exterior">
+                    </div>
+                    <div class="slide-item">
+                        <img src="assets/cabana2.jpg" alt="Cabana Interior">
+                    </div>
+                </div>
+              </div> <!-- Aici se închide corect .carousel-slide (linia 31) -->
+
+        <!-- Butoanele caruselului rămân neschimbate -->
+        <button class="carousel-btn prev" id="btn-prev">&#10094;</button>
+        <button class="carousel-btn next" id="btn-next">&#10095;</button>
+
+        <!-- Pungă completă: textul și butonul sunt mutate ÎN INTERIORUL overlay-ului -->
+        <div class="carousel-overlay">
+            <div class="hero-container">
+                <h1 data-i18n="hero_title">Bine ati venit la Our Nest</h1>
+                <p data-i18n="hero_subtitle" class="subtitle" style="color: white;">O oaza de liniste in mijlocul naturii.</p>
+                <button data-i18n="btn_rezerva_acum" id="btn-test">Rezerva Acum</button>
+            </div>
+        </div> <!-- Se închide .carousel-overlay -->
+
+    </div> <!-- Se închide .carousel-container -->
+</main> <!-- Se închide .main-content (linia 43) -->
+
+            <!--sectiunea formular de rezervare-->
+            <div class="modal-overlay" id="booking-modal">
+    <div class="modal-content">
+        <button class="close-modal" id="close-modal">&times;</button>
+
+        <section class="booking-section">
+            <h2 data-i18n="modal_title" id="modal-step-title">Pasul 1: Calculează sejurul la Our Nest</h2>
+            
+            <form id="booking-form">
+                
+                <!-- PASUL 1: Selectare Date & Opțiuni Extra -->
+                <div id="booking-step-1">
+                    <div class="form-group">
+                        <label data-i18n="label_tip_rezervare">Tip rezervare:</label>
+                        <div class="cabin-info-box">
+                            <strong data-i18n="text_entreaga_cabana">Întreaga Cabană</strong> - <span id="base-rate">600</span> RON / noapte
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label data-i18n="label_checkin" for="check-in">Data Check-in:</label>
+                            <input type="date" id="check-in" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="label_checkout" for="check-out">Data Check-out:</label>
+                            <input type="date" id="check-out" required>
+                        </div>
+                    </div>
+
+                    <!-- Calendarul vizual integrat direct în pagină -->
+                    <div id="calendar-afisat" style="margin-top: 15px;"></div>
+
+                    <!-- Secțiune Servicii Extra -->
+                    <div class="form-group extra-services-group">
+                        <label data-i18n="label_optiuni_extra">Opțiuni & Pachete de Bun Venit (Opțional):</label>
+                        <div class="extra-options-list">
+                            <label class="extra-checkbox-item">
+                                <input type="checkbox" class="extra-option" value="150" data-name="Șampanie de bun venit">
+                                <span data-i18n="extra_sampanie">🍾 Șampanie rece la sosire (+150 RON)</span>
+                            </label>
+                            <label class="extra-checkbox-item">
+                                <input type="checkbox" class="extra-option" value="100" data-name="Selecție Vin Premium">
+                                <span data-i18n="extra_vin">🍷 Selecție Vin Premium (+100 RON)</span>
+                            </label>
+                            <label class="extra-checkbox-item">
+                                <input type="checkbox" class="extra-option" value="200" data-name="Decor floral romantic">
+                                <span data-i18n="extra_decor">🌹 Decor floral & petale trandafir (+200 RON)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="price-display">
+                        <h3>
+                            <span data-i18n="label_pret_total">Preț total:</span> 
+                            <span id="total-price">0</span> RON
+                         </h3>
+                    </div>
+
+                    <button data-i18n="btn_next" type="button" id="btn-next-step" class="btn-primary">Avansează la Date Personale ➡️</button>
+                </div>
+
+                <!-- PASUL 2: Date Personale pentru Facturare & Cazați -->
+                <div id="booking-step-2" style="display: none;">
+                    <p data-i18n="step2_desc" class="step-description">Aproape gata! Introdu datele tale pentru confirmarea rezervării și emiterea facturii:</p>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label data-i18n="label_nume" for="client-nume">Nume:*</label>
+                            <input type="text" id="client-nume" placeholder="Popescu">
+                        </div>
+                        <div class="form-group">
+                            <label  data-i18n="label_prenume" for="client-prenume">Prenume:*</label>
+                            <input type="text" id="client-prenume" placeholder="Ion">
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label data-i18n="label_telefon" for="client-telefon">Telefon:*</label>
+                            <input type="tel" id="client-telefon" placeholder="07xx xxx xxx">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="label_email" for="client-email">Email:*</label>
+                            <input type="email" id="client-email" placeholder="nume@domain.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="label_cnp" for="client-cnp">CNP / Serie & Nr. CI (necesar pentru cazare & factură):*</label>
+                        <input type="text" id="client-cnp" placeholder="1900101xxxxxx">
+                    </div>
+
+                    <div class="summary-box">
+                        <p><strong data-i18n="label_sumar">Sumar:</strong> <span id="summary-text">0 nopți | Preț final: 0 RON</span></p>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button data-i18n="btn_back" type="button" id="btn-back-step" class="btn-secondary">⬅️ Înapoi</button>
+                        <button data-i18n="btn_submit" type="submit" id="btn-submit-booking" class="btn-primary">Finalizează & Trimitere Rezervare</button>
+                    </div>
+                </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        
+    </main>
+
+    <!--Sectiunea de contact (Modal Pop-up)-->
+    <div class="modal-overlay" id="contact-modal">
+        <div class="modal-content contact-modal-content">
+            <!--Butonul de inchidere (X)-->
+            <button class="close-modal" id="close-contact-modal">&times;</button>
+
+            <h2 data-i18n="contact_title"  class="selection-title">Contact & Social Media</h2>
+            <p data-i18n="contact_subtitle"  class="selection-subtitle">Ai intrebari sau vrei sa ne urmaresti? Ne gasesti aici:</p>
+            
+            <!-- Containerul Grid pentru a așeza cele două coloane una lângă alta -->
+            <div class="contact-grid">
+                <!-- Date de contact -->
+                <div class="contact-info">
+                    <h3 data-i18n="contact_heading_info">Date de Contact</h3>
+
+                    <div class="info-item">
+                        <span class="info-icon">📞</span>
+                        <div class="info-text">
+                            <h4 data-i18n="contact_phone">Telefon</h4>
+                            <a href="#" class="contact-link-direct">0040700 000 000</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">✉️</span>
+                        <div class="info-text">
+                            <h4>E-mail</h4>
+                            <a href="#" class="contact-link-direct">contact@yahoo.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <div class="info-text">
+                            <h4 data-i18n="contact_address">Adresa Cabana</h4>
+                            <p>Strada xxx, Nr.123, Romania</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Link-uri social media -->
+                <div class="Contact-Social">
+                    <h3 data-i18n="contact_heading_social">Urmareste-ne</h3>
+                    <p data-i18n="contact_text_social"> Apasa pe link-urile urmatoare pentru a ne vizita</p>
+
+                    <div class="social-links">
+                        <a href="#" class="social-btn facebook">
+                            <span class="soc-icon">📘</span>Facebook
+                        </a>
+                        <a href="#" class="social-btn instagram">
+                            <span class="soc-icon">📸</span>Instagram
+                        </a>
+                        <a href="#" class="social-btn tiktok">
+                            <span class="soc-icon">🎵</span>TikTok
+                        </a>
+                    </div>
+                </div>
+            </div> <!-- Închidere contact-grid -->
+        </div> <!-- Închidere modal-content -->
+    </div> <!-- Închidere modal-overlay -->
+
+    
+    <div class="info-overlay" id="info-modal">
+        <button class="close-info" id="close-info">&times;</button>
+
+        <div class="info-carousel-container">
+            <div class="info-carousel-slide">
+
+                <!--slide 1 :jacuzzi-->
+                <div class="info-slide-item" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/jacuzzi.jpg');">
+                    <div class="info-text-box">
+                        <h2 data-i18n="about_jacuzzi_title">Jacuzzi pentru doua persoane</h2>
+                        <p data-i18n="about_jacuzzi_desc">Relaxare totală sub cerul liber, înconjurat de pădure. Inclus în prețul nopții de cazare, pregătit și încălzit exact la temperatura ideală pentru sosirea ta.</p>
+                    </div>
+                </div>
+                <!--slide2:gratar-->
+
+                <div class="info-slide-item" style="background-image:linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/gratar.jpg');">
+                    <div class="info-text-box">
+                        <h2 data-i18n="about_gratar_title">Terasa si Gratar</h2>
+                        <p data-i18n="about_gratar_desc">Tot ce ai nevoie pentru o seară perfectă: grătar profesional, lemne și cărbuni din partea casei, plus un foișor acoperit unde poți lua masa în siguranță.</p>
+                    </div>
+                </div>
+
+                <!--slide 3 interior-->
+                <div class="info-slide-item" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/interior.jpg');">
+                <div class="info-text-box">
+                    <h2 data-i18n="about_interior_title">Confort Interior Complet</h2>
+                    <p data-i18n="about_interior_desc">Bucătărie complet utilată, espressor cu cafea premium inclusă, Wi-Fi de mare viteză pentru momentele în care vrei să rămâi conectat și un living călduros.</p>
+                </div>
+            </div>
+
+            </div>
+            <!-- Săgețile dedicate caruselului din modal -->
+        <button class="info-carousel-btn info-prev" id="info-btn-prev">&#10094;</button>
+        <button class="info-carousel-btn info-next" id="info-btn-next">&#10095;</button>
+        </div>
+    </div>
+    <!-- Modal Carusel pentru Servicii Extra / Pachete Romantice -->
+<div class="info-overlay" id="extra-modal">
+    <button class="close-info" id="close-extra-modal">&times;</button>
+
+    <div class="info-carousel-container">
+        <div class="info-carousel-slide" id="extra-carousel-slide">
+
+            <!-- Slide 1: Șampanie de Bun Venit -->
+            <div class="info-slide-item" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/sampanie.jpg');">
+                <div class="info-text-box">
+                    <h2 data-i18n="extra_slide1_title">Șampanie Fină la Sosire</h2>
+                    <p data-i18n="extra_slide1_desc">Sărbătorește sosirea cu o sticla de șampanie rece, pregătită cu gheață direct în cameră, gata pentru momentul în care pui piciorul în cabană.</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Vin Premium -->
+            <div class="info-slide-item" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/vin.jpg');">
+                <div class="info-text-box">
+                    <h2 data-i18n="extra_slide2_title">Selecție de Vinuri de Colecție</h2>
+                    <p data-i18n="extra_slide2_desc">Alege o sticlă de vin roșu sau alb din crame selecționate, perfectă pentru o seară liniștită lângă șemineu sau pe terasă.</p>
+                </div>
+            </div>
+
+            <!-- Slide 3: Aranjamente Florale & Decor Romantic -->
+            <div class="info-slide-item" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/flori.jpg');">
+                <div class="info-text-box">
+                    <h2 data-i18n="extra_slide3_title">Aranjamente Florale pentru Îndrăgostiți</h2>
+                    <p data-i18n="extra_slide3_desc">Surprinde-ți partenerul/partenera! Pregătim un decor romantic cu buchete de flori proaspete și petale de trandafir aranjate cu grijă.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Săgețile de navigare pentru caruselul Extra -->
+        <button class="info-carousel-btn info-prev" id="extra-btn-prev">&#10094;</button>
+        <button class="info-carousel-btn info-next" id="extra-btn-next">&#10095;</button>
+    </div>
+</div>
+
+<!-- Subsol (Footer) -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <!-- Coloana 1: Titlu & Locație -->
+        <div class="footer-col">
+            <h2 class="footer-title">Our Nest</h2>
+            <p class="footer-text">Strada Principală, Nr. 123</p>
+            <p class="footer-text">România</p>
+            <p class="footer-text muted">Zona de munte & natură</p>
+        </div>
+
+        <!-- Coloana 2: Contact Rapid -->
+        <div class="footer-col">
+            <h3 data-i18n="footer_contact_rapid">Contact Rapid</h3>
+            <p class="footer-icon-line">
+                <i class="fa-solid fa-phone f-icon"></i>
+                <a href="tel:+40700000000">+40 700 000 000</a>
+            </p>
+            <p class="footer-icon-line">
+                <i class="fa-solid fa-envelope f-icon"></i>
+                <a href="mailto:contact@ournest.ro">contact@ournest.ro</a>
+            </p>
+        </div>
+
+        <!-- Coloana 3: Program -->
+        <div class="footer-col">
+            <h3 data-i18n="footer_program">Program</h3>
+            <p class="footer-icon-line">
+                <i class="fa-solid fa-location-dot f-icon"></i> Locație liniștită
+            </p>
+            <p class="footer-icon-line">
+                <i class="fa-regular fa-clock f-icon"></i> Check-in: 15:00
+            </p>
+            <p class="footer-icon-line">
+                <i class="fa-regular fa-clock f-icon"></i> Check-out: 11:00
+            </p>
+        </div>
+
+        <!-- Coloana 4: Social Media -->
+        <div class="footer-col">
+            <h3>Social Media</h3>
+            <div class="footer-social-links">
+                <a href="https://facebook.com" target="_blank" class="social-icon-btn" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon-btn" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://tiktok.com" target="_blank" class="social-icon-btn" aria-label="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Linia de jos: Copyright & Legături Utile -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <p data-i18n="footer_copyright" class="copyright">&copy; 2026 Our Nest. Toate drepturile rezervate.</p>
+            <div class="legal-links">
+                <a data-i18n="legal_privacy" href="#">Politica de Confidențialitate</a>
+                <a  data-i18n="legal_cookies" href="#">Politica de Cookie-uri</a>
+                <a data-i18n="legal_cookie_settings" href="#">Setări cookie</a>
+                <a data-i18n="legal_terms" href="#">Termeni și Condiții</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
