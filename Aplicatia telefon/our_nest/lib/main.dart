@@ -34,44 +34,57 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   DateTime focusedDay=DateTime.now();
-  final List<Map<String, dynamic>> _reservations = [
-    {
-      'id': '1',
-      'guest': 'Popescu Ion',
-      'startDate': DateTime(2026, 10, 20, 15, 0), // 20 Oct, ora 15:00
-      'endDate': DateTime(2026, 10, 23, 11, 0),   // 23 Oct, ora 11:00
-      'checkIn': '20 Oct 2026',
-      'checkOut': '23 Oct 2026',
-      'price': '1.200 RON',
-      'phone': '+40712345678',
-      'paymentStatus': 'Avans achitat',
-      'notes': 'Sosire târzie (ora 21:00).',
-      'isNew': true,
-      
-      'extras': [
-        {'title': 'Sticlă de Șampanie', 'done': true},
-        {'title': 'Decorațiuni romantice', 'done': true},
-      ],
-    },
-    {
-      'id': '2',
-      'guest': 'Ionescu Maria',
-      'startDate': DateTime(2026, 11, 25, 15, 0), // 20 Oct, ora 15:00
-      'endDate': DateTime(2026, 11, 27, 11, 0),   // 23 Oct, ora 11:00
-      'checkIn': 'Nov Feb 2026',
-      'checkOut': 'Nov Feb 2026',
-      'price': '800 RON',
-      'phone': '+40722334455',
-      'paymentStatus': 'Neachitat',
-      'notes': 'Aniversare căsătorie.',
-      'isNew': true,
+  // Lista începe goală; datele vor veni din backend!
+  List<Map<String, dynamic>> _reservations = [];
+  bool _isLoading = true; // Pentru a afișa un indicator de încărcare
 
-      'extras': [
-        {'title': 'Sticlă de Vin', 'done': false},
-        {'title': 'Decorațiuni romantice', 'done': false},
-      ],
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _incarcaRezervariDinBackend(); // Descarcă datele imediat ce se deschide aplicația
+  }
+
+  // Funcție de PRELUARE (GET) a rezervărilor din backend-ul de pe Render
+  Future<void> _incarcaRezervariDinBackend() async {
+    final url = Uri.parse('https://cabanabookingapi.onrender.com/api/Rezervari');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // Dacă serverul a răspuns cu succes, transformăm JSON-ul primit în lista aplicației
+        final List<dynamic> data = jsonDecode(response.body);
+        
+        setState(() {
+          _reservations = data.map((item) {
+            // Aici mapăm datele primite de la server pe structura pe care o folosește calendarul/interfața ta
+            return {
+              'id': item['id'].toString(),
+              'guest': '${item['client']?['nume'] ?? ''} ${item['client']?['prenume'] ?? ''}',
+              'startDate': DateTime.parse(item['rezervare']?['checkIn'] ?? DateTime.now().toIso8601String()),
+              'endDate': DateTime.parse(item['rezervare']?['checkOut'] ?? DateTime.now().toIso8601String()),
+              'checkIn': item['rezervare']?['checkIn'] ?? '',
+              'checkOut': item['rezervare']?['checkOut'] ?? '',
+              'price': '${item['rezervare']?['pretTotal'] ?? 0} RON',
+              'phone': item['client']?['telefon'] ?? '',
+              'paymentStatus': 'Confirmat', // sau statusul real din baza de date
+              'notes': 'Fără mențiuni',
+              'isNew': false,
+              'extras': <Map<String, dynamic>>[],
+            };
+          }).toList();
+          _isLoading = false;
+        });
+      } else {
+        debugPrint("Eroare la descărcarea datelor: ${response.statusCode}");
+        setState(() { _isLoading = false; });
+      }
+    } catch (e) {
+      debugPrint("Eroare de conexiune la preluare: $e");
+      setState(() { _isLoading = false; });
+    }
+  }
+
 
   // Funcție de trimitere către Backend-ul C# (.NET API)
   Future<bool> _trimiteRezervareToBackend({
@@ -87,7 +100,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }) async {
     // 10.0.2.2 este IP-ul prin care emulatorul Android accesează localhost-ul PC-ului.
     // Schimbă portul (ex: 5246 sau 7182) conform setărilor din launchSettings.json-ul tău C#.
-    final url = Uri.parse('http://10.0.2.2:5246/api/Rezervari');
+    final url = Uri.parse('https://cabanabookingapi.onrender.com/api/Rezervari');
 
     final bodyPayload = {
       "client": {
@@ -1132,6 +1145,14 @@ bool _isCheckInDate(DateTime day) {
   @override
   Widget build(BuildContext context) {
     int newCount = _reservations.where((r) => r['isNew'] == true).length;
+
+    if (_isLoading) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),

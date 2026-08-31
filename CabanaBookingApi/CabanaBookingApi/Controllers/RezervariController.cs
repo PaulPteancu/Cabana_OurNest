@@ -92,5 +92,26 @@ namespace CabanaBookingApi.Controllers
                 return StatusCode(500, new { message = "Eroare la citirea datelor: " + ex.Message });
             }
         }
-    }
+
+        // ---  ENDPOINT PENTRU GET REZERVĂRI ---
+        // GET: api/Rezervari
+        [HttpGet]
+        public async Task<IActionResult> GetRezervariComplete()
+        {
+            try
+            {
+                var rezervari = await _context.Rezervaris
+                    .Include(r => r.IdClientNavigation) 
+                    .ToListAsync();
+
+                return Ok(rezervari);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Eroare la preluarea rezervărilor: " + ex.Message });
+            }
+        }
+        // --------------------------------------------------
+
+    } // <--- Aceasta este acolada finală a clasei RezervariController
 }
