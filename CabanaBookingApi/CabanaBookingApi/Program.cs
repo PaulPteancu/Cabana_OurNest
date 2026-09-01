@@ -26,6 +26,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Activează politica CORS
+app.UseCors("AllowAll");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -33,9 +36,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Activează politica CORS
-app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
