@@ -1,6 +1,8 @@
 using CabanaBookingApi.Models; // Namespace-ul pentru modelele generate în folderul Models
 using Microsoft.EntityFrameworkCore;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Adaugă conexiunea la baza de date Supabase (PostgreSQL)
