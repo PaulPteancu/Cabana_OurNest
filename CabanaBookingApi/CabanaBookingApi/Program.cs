@@ -17,9 +17,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
+       policy.SetIsOriginAllowed(_ => true) // Permite absolut orice origin (inclusiv GitHub Pages)
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials(); // Permite credențiale și setul complet de headere
     });
 });
 
