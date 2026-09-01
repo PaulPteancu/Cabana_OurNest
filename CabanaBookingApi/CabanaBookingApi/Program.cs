@@ -15,12 +15,12 @@ builder.Services.AddSwaggerGen();
 // Permite apelarea API-ului din browser/site web (CORS)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+   options.AddPolicy("AllowAll", policy =>
     {
-       policy.SetIsOriginAllowed(_ => true) // Permite absolut orice origin (inclusiv GitHub Pages)
+        policy.WithOrigins("https://paulpteancu.github.io")
               .AllowAnyMethod()
               .AllowAnyHeader()
-              .AllowCredentials(); // Permite credențiale și setul complet de headere
+              .AllowCredentials();
     });
 });
 
