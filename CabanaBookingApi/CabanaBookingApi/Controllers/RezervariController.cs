@@ -35,8 +35,19 @@ namespace CabanaBookingApi.Controllers
                     Telefon = cerere.Client.Telefon,
                     Email = cerere.Client.Email,
                     Cnp = cerere.Client.Cnp,
-                   DataInregistrare = DateTime.UtcNow
+                    DataInregistrare = DateTime.UtcNow
                 };
+
+                // Diagnostic temporar
+                    var entityType = _context.Model.FindEntityType(typeof(Clienti));
+                    var property = entityType?.FindProperty(nameof(Clienti.DataInregistrare));
+
+                    Console.WriteLine($"DataInregistrare = {clientNou.DataInregistrare:o}");
+                    Console.WriteLine($"DateTime Kind = {clientNou.DataInregistrare?.Kind}");
+                    Console.WriteLine($"EF runtime column type = {property?.GetColumnType()}");
+                    Console.WriteLine($"EF runtime CLR type = {property?.ClrType}");
+
+
 
                 _context.Clientis.Add(clientNou);
                 await _context.SaveChangesAsync();
