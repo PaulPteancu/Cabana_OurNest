@@ -106,10 +106,10 @@ public partial class PostgresContext : DbContext
 
             entity.Property(e => e.IdRezervare).HasColumnName("id_rezervare");
             entity.Property(e => e.DataCheckin)
-                .HasColumnType("timestamp without time zone")
+                .HasColumnType("timestamptz")
                 .HasColumnName("data_checkin");
             entity.Property(e => e.DataCheckout)
-                .HasColumnType("timestamp without time zone")
+                .HasColumnType("timestamptz")
                 .HasColumnName("data_checkout");
             entity.Property(e => e.DataCreare)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
