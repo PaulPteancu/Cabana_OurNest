@@ -62,7 +62,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("cnp");
             entity.Property(e => e.DataInregistrare) 
                  .HasColumnName("data_inregistrare")
-                 .HasColumnType("timestamptz");
+                 .HasColumnType("timestamp with time zone");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
