@@ -60,10 +60,9 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Cnp)
                 .HasMaxLength(13)
                 .HasColumnName("cnp");
-            entity.Property(e => e.DataInregistrare)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("data_inregistrare");
+            entity.Property(e => e.DataInregistrare) 
+                 .HasColumnName("data_inregistrare")
+                 .HasColumnType("timestamp with time zone");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");

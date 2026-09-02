@@ -35,7 +35,7 @@ namespace CabanaBookingApi.Controllers
                     Telefon = cerere.Client.Telefon,
                     Email = cerere.Client.Email,
                     Cnp = cerere.Client.Cnp,
-                   DataInregistrare = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified)
+                   DataInregistrare = DateTime.UtcNow
                 };
 
                 _context.Clientis.Add(clientNou);
