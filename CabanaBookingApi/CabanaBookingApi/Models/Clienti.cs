@@ -17,7 +17,7 @@ public partial class Clienti
 
     public string? Cnp { get; set; }
 
-    public DateTime? DataInregistrare { get; set; }
+    public DateOnly? DataInregistrare { get; set; }
 
     public virtual ICollection<Rezervari> Rezervaris { get; set; } = new List<Rezervari>();
 }
