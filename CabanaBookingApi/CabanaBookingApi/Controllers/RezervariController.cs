@@ -35,17 +35,9 @@ namespace CabanaBookingApi.Controllers
                     Telefon = cerere.Client.Telefon,
                     Email = cerere.Client.Email,
                     Cnp = cerere.Client.Cnp,
-                    DataInregistrare = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
+                    DataInregistrare = DateOnly.FromDateTime(DateTime.Today)
                 };
 
-                // Diagnostic temporar
-                    var entityType = _context.Model.FindEntityType(typeof(Clienti));
-                    var property = entityType?.FindProperty(nameof(Clienti.DataInregistrare));
-
-                    Console.WriteLine($"DataInregistrare = {clientNou.DataInregistrare:o}");
-                    Console.WriteLine($"DateTime Kind = {clientNou.DataInregistrare?.Kind}");
-                    Console.WriteLine($"EF runtime column type = {property?.GetColumnType()}");
-                    Console.WriteLine($"EF runtime CLR type = {property?.ClrType}");
 
 
 
@@ -87,10 +79,10 @@ namespace CabanaBookingApi.Controllers
                 foreach (var rezervare in rezervari)
                 {
                     // Folosim direct proprietățile DateTime, fără .HasValue / .Value
-                    DateTime checkIn = rezervare.DataCheckin;
-                    DateTime checkOut = rezervare.DataCheckout;
+                    DateOnly checkIn = rezervare.DataCheckin;
+                    DateOnly checkOut = rezervare.DataCheckout;
 
-                    for (DateTime day = checkIn; day < checkOut; day = day.AddDays(1))
+                    for (DateOnly day = checkIn; day < checkOut; day = day.AddDays(1))
                     {
                         dateOcupate.Add(day.ToString("yyyy-MM-dd"));
                     }
