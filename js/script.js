@@ -337,7 +337,7 @@ function initCalendare() {
                     checkIn: checkInInput.value,
                     checkOut: checkOutInput.value,
                     pretTotal: totalPriceSpan.textContent,
-                    opțiuniExtra: extraAlese
+                    optiuniExtra: extraAlese
                 }
             };
             // Trimiterea propriu-zisă către Web API (Backend C#)

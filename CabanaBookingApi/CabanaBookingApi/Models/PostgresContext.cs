@@ -62,7 +62,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("cnp");
             entity.Property(e => e.DataInregistrare) 
                  .HasColumnName("data_inregistrare")
-                 .HasColumnType("timestamp with time zone");
+                 .HasColumnType("date");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
@@ -106,14 +106,14 @@ public partial class PostgresContext : DbContext
 
             entity.Property(e => e.IdRezervare).HasColumnName("id_rezervare");
             entity.Property(e => e.DataCheckin)
-                .HasColumnType("timestamptz")
+                .HasColumnType("date")
                 .HasColumnName("data_checkin");
             entity.Property(e => e.DataCheckout)
-                .HasColumnType("timestamptz")
+                .HasColumnType("date")
                 .HasColumnName("data_checkout");
             entity.Property(e => e.DataCreare)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("CURRENT_DATE")
+                .HasColumnType("date")
                 .HasColumnName("data_creare");
             entity.Property(e => e.IdClient).HasColumnName("id_client");
             entity.Property(e => e.IsNew)

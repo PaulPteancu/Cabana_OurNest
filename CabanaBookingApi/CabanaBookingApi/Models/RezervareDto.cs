@@ -11,8 +11,8 @@
 
     public class RezervareInfo
     {
-        public DateTime CheckIn { get; set; }
-        public DateTime CheckOut { get; set; }
+        public DateOnly CheckIn { get; set; }
+        public DateOnly CheckOut { get; set; }
         public decimal PretTotal { get; set; }
         public List<string> OptiuniExtra { get; set; } = new List<string>();
     }
