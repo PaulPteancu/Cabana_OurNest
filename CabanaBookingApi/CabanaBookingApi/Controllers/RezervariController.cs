@@ -48,8 +48,8 @@ namespace CabanaBookingApi.Controllers
                 var rezervareNoua = new Rezervari
                 {
                     IdClient = clientNou.IdClient,
-                    DataCheckin = DateOnly.FromDateTime(cerere.Rezervare.CheckIn),
-                    DataCheckout = DateOnly.FromDateTime(cerere.Rezervare.CheckOut),
+                    DataCheckin = cerere.Rezervare.CheckIn.ToDateTime(TimeOnly.MinValue),
+                    DataCheckout = cerere.Rezervare.CheckOut.ToDateTime(TimeOnly.MinValue),
                     PretTotal = cerere.Rezervare.PretTotal
                 };
 
