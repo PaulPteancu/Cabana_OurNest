@@ -103,11 +103,24 @@ namespace CabanaBookingApi.Controllers
         {
             try
             {
-                var rezervari = await _context.Rezervaris
-                    .Include(r => r.IdClientNavigation) 
-                    .ToListAsync();
+               var rezervari = await _context.Rezervaris
+            .Include(r => r.IdClientNavigation)
+            .Select(r => new {
+                id = r.IdRezervare,
+                rezervare = new {
+                    checkIn = r.DataCheckin,
+                    checkOut = r.DataCheckout,
+                    pretTotal = r.PretTotal
+                },
+                client = r.IdClientNavigation != null ? new {
+                    nume = r.IdClientNavigation.Nume,
+                    prenume = r.IdClientNavigation.Prenume,
+                    telefon = r.IdClientNavigation.Telefon
+                } : null
+            })
+            .ToListAsync();
 
-                return Ok(rezervari);
+            return Ok(rezervari);
             }
             catch (Exception ex)
             {
