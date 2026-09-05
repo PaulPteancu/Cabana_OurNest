@@ -48,8 +48,8 @@ namespace CabanaBookingApi.Controllers
                 var rezervareNoua = new Rezervari
                 {
                     IdClient = clientNou.IdClient,
-                    DataCheckin = cerere.Rezervare.CheckIn,
-                    DataCheckout = cerere.Rezervare.CheckOut,
+                    DataCheckin = DateOnly.FromDateTime(cerere.Rezervare.CheckIn),
+                    DataCheckout = DateOnly.FromDateTime(cerere.Rezervare.CheckOut),
                     PretTotal = cerere.Rezervare.PretTotal
                 };
 
@@ -79,8 +79,8 @@ namespace CabanaBookingApi.Controllers
                 foreach (var rezervare in rezervari)
                 {
                     // Folosim direct proprietățile DateTime, fără .HasValue / .Value
-                    DateOnly checkIn = rezervare.DataCheckin;
-                    DateOnly checkOut = rezervare.DataCheckout;
+                    DateOnly checkIn = DateOnly.FromDateTime(rezervare.DataCheckin);
+                    DateOnly checkOut = DateOnly.FromDateTime(rezervare.DataCheckout);
 
                     for (DateOnly day = checkIn; day < checkOut; day = day.AddDays(1))
                     {
